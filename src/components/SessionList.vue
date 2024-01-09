@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { SessionOverview } from '../models.ts';
-
+import SessionCard from './SessionCard.vue'; 
 // we 'll talk about this in a later module, but here we load the list of sessions and log it to the browser console
 // you can also open public/api/sessions/index.json to see the data in your editor
 const sessions = ref<SessionOverview[]>([]);
@@ -113,7 +113,7 @@ const filteredSessions = computed(() => {
       <!-- here we include three different cards depending on the level -->
       <!-- your job is to replace this static markup with vue templating syntax -->
       <!-- introductory and overview -->
-      <div class="card" v-for="session in filteredSessions" :key="session.id">
+      <!-- <div class="card" v-for="session in filteredSessions" :key="session.id">
         <div class="card-body">
           <span
             class="badge"
@@ -132,7 +132,10 @@ const filteredSessions = computed(() => {
             <a href="" class="btn btn-primary">Details</a>
           </div>
         </div>
-      </div>
+      </div> -->
+      <div class="speaker-grid">
+      <SessionCard v-for="session in filteredSessions" :key="session.id" :session="session"/>
+      </div> 
     </div>
 
     <!-- show this if there are no sessions -->
@@ -147,21 +150,5 @@ const filteredSessions = computed(() => {
   grid-gap: 1rem;
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
 
-.card-text {
-  flex: 1;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  border-top: 1px solid #ccc;
-}
 </style>
