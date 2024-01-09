@@ -91,20 +91,7 @@ const filteredSessions = computed(() => {
       </div>
     </div>
 
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-      <template v-for="level in levels" :key="level">
-        <input
-          type="radio"
-          class="btn-check"
-          name="btnradio"
-          :id="level"
-          autocomplete="off"
-          @click="handleSelectLevel(level)"
-          :checked="level === selectedLevel"
-        />
-        <label class="btn btn-outline-primary" :for="level">{{ level }}</label>
-      </template>
-    </div>
+    
 
     <!-- we're going to add filters in a later module that will update these counts -->
     <p>Showing {{ filteredSessions.length }} of {{ sessions.length }} talks</p>
@@ -137,6 +124,11 @@ const filteredSessions = computed(() => {
       <SessionCard v-for="session in filteredSessions" :key="session.id" :session="session"/>
       </div> 
     </div>
+    <ButtonGroup
++      :options="levels"
++      :model-value="selectedLevel"
++      @update:model-value="(newValue) => (selectedLevel = newValue)"
++    />
 
     <!-- show this if there are no sessions -->
     <p v-if="filteredSessions.length === 0">No sessions found</p>
